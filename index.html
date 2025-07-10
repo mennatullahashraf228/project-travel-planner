@@ -1,55 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="bootstrap.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel Planner</title>
+
+  <!-- Bootstrap & Icons -->
+  <link rel="stylesheet" href="bootstrap.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    body {
+      text-transform: capitalize;
+      background-color: rgb(123, 70, 150);
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: rgb(159, 103, 187) !important;
+    }
+    .navbar-brand,
+    .nav-link,
+    .form-control {
+      color: white !important;
+      font-weight: 600;
+    }
+    .nav-link i { margin-right: 5px; }
+    .nav-link:hover { color: rgb(208, 192, 216) !important; }
+    .form-control {
+      background: linear-gradient(45deg, rgb(122, 127, 215), rgb(123, 70, 150));
+      border: none;
+      border-radius: 5px;
+      transition: transform 0.3s ease;
+    }
+    .form-control:hover { transform: scale(1.05); }
+
+    /* Hero Section */
+    .hero-section {
+      background: url("backg3.jpeg") center/cover no-repeat;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 15px;
+      color: white;
+    }
+    .hero-section i {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+    .hero-section h1 {
+      font-size: 3rem;
+      margin: 0;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+    }
+    .hero-section p {
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 1.1rem;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+    }
+    .hero-section button {
+      margin: 10px;
+      padding: 10px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background: linear-gradient(45deg, rgb(122,127,215), rgb(123,70,150));
+      color: white;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .hero-section button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(45deg, rgb(100,105,190), rgb(103,55,130));
+    }
+
+    /* Feature Cards */
+    #section {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: aliceblue;
+      width: 75%;
+      margin: 30px auto;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+      padding: 50px;
+      border-radius: 10px;
+    }
+    #section div {
+      flex: 1 1 200px;
+      max-width: 150px;
+    }
+    #section i {
+      font-size: 2rem;
+      color: rgb(123, 70, 150);
+      margin-bottom: 10px;
+    }
+    #section h4 { padding: 10px 0; }
+    #section p { color: rgb(100, 107, 113); }
+
+    /* Featured Destinations */
+    #cardContainer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin: 10px auto 10px;
+      width: 75%;
+    }
+    .card {
+      width: 18rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background-color: white;
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 15px;
+    }
+    .card-body h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+    .card-body p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .tags span {
+      display: inline-block;
+      margin-right: 10px;
+      background-color: #ddd;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+    .btn-group {
+      margin-top: 15px;
+    }
+    .btn-group button {
+      margin-right: 5px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgb(122, 127, 215);
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 0.9rem;
+    }
+    .btn-group button:hover {
+      background-color: rgb(100, 105, 190);
+    }
+
+    /* Travel Statistics */
+    #statistics {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 50px auto;
+      width: 75%;
+      text-align: center;
+      color: white;
+    }
+    .stat {
+      flex: 1 1 150px;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+    .stat-label {
+      margin-top: 5px;
+      font-size: 1rem;
+    }
+
+    /* CTA Section */
+    #cta {
+      background-color: white;
+      width: 75%;
+      margin: 50px auto;
+      padding: 40px 15px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    #cta h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: rgb(123, 70, 150);
+    }
+    #cta button {
+      margin: 10px;
+      padding: 10px 20px;
+      background: linear-gradient(45deg, rgb(122,127,215), rgb(123,70,150));
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: transform 0.3s ease;
+      font-size: 1rem;
+    }
+    #cta button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(45deg, rgb(100,105,190), rgb(103,55,130));
+    }
+
+    /* Footer */
+    footer {
+      background-color: rgb(159,103,187);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+    footer p {
+      margin: 5px 0;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-sm navbar-light " style="
-        
-            background:linear-gradient(45deg, rgb(107, 114, 255), rgb(140,70,174));" >
-        <div class="container">
-            <a class="navbar-brand" href="#"> <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                    viewBox="0 -960 960 960" width="24px" fill="#FFFFFF" style="width: 24px;">
-                    <path
-                        d="m397-115-99-184-184-99 71-70 145 25 102-102-317-135 84-86 385 68 124-124q23-23 57-23t57 23q23 23 23 56.5T822-709L697-584l68 384-85 85-136-317-102 102 26 144-71 71Z" />
-                </svg>Travel Planner</a>
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#" aria-current="page">Home
-                            <span class="visually-hidden">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Destinations</a>
-                    </li>
-                   <li class="nav-item">
-                        <a class="nav-link" href="#">My Trips</a>
-                    </li><li class="nav-item">
-                        <a class="nav-link" href="#">Favourites</a>
-                    </li>
-                </ul>
-                <form class="d-flex my-2 my-lg-0">
-                    <button class="form-control" type="button" style="background:linear-gradient(120deg, rgb(107, 114, 255), rgb(140,70,174));color: white;">
-                        Login/Register
-                    </button>
-                </form>
-            </div>
-        </div>
-    </nav>
-<div style="">
 
-</div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-geo-alt-fill"></i> Travel Planner
+      </a>
+      <button class="navbar-toggler d-lg-none" type="button"
+        data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="bi bi-house-door-fill"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="destinations.html"><i class="bi bi-map"></i> Destinations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my-trips.html"><i class="bi bi-calendar-check-fill"></i> My Trips</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="favourites.html"><i class="bi bi-heart-fill"></i> Favourites</a>
+          </li>
+        </ul>
+        <form class="d-flex my-2 my-lg-0">
+          <button class="form-control" type="button">
+            <i class="bi bi-person-circle"></i> Login/Register
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div>
+      <i class="fa-solid fa-magnifying-glass-location"></i>
+      <h1>plan your dream vacation</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad voluptatem
+        alias quidem illo ex eveniet cumque. Omnis, incidunt sint unde,
+        obcaecati, vero harum quisquam fugiat delectus quo voluptas eum?
+        Officiis
+      </p>
+      <button>explore destination</button>
+      <button>get started</button>
+    </div>
+  </div>
+
+  <!-- Feature Cards -->
+  <div id="section">
+    <div>
+      <i class="fa-solid fa-location-dot"></i>
+      <h4>discover destinations</h4>
+      <p>
+        Explore thousands of amazing destinations around the world with
+        detailed information and stunning photos
+      </p>
+    </div>
+    <div>
+      <i class="fa-solid fa-calendar-days"></i>
+      <h4>plan your trip</h4>
+      <p>
+        Create detailed itineraries, set travel dates, and organize your
+        perfect vacation with our intuitive planner
+      </p>
+    </div>
+    <div>
+      <i class="fa-solid fa-cloud-sun"></i>
+      <h4>weather info</h4>
+      <p>
+        Get real-time weather information for your destinations to help you
+        pack and plan accordingly
+      </p>
+    </div>
+    <div>
+      <i class="fa-solid fa-users"></i>
+      <h4>share & collaborate</h4>
+      <p>
+        Share your travel plans with friends and family, or collaborate on
+        group trips together
+      </p>
+    </div>
+  </div>
+
+  <!-- Featured Destinations -->
+  <div style="background-color: aliceblue; width: 75%; margin: auto; text-align: center; padding: 30px 0; border-radius: 10px;">
+    <h1><i class="fa-solid fa-star"></i> featured destinations</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum!</p>
+    <div id="cardContainer"></div>
+  </div>
+
+  <!-- Travel Statistics -->
+  <div id="statistics">
+    <div class="stat">
+      <div class="stat-number">0+</div>
+      <div class="stat-label">Destinations</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">0+</div>
+      <div class="stat-label">Active Users</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">0+</div>
+      <div class="stat-label">Trips Planned</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">0.5</div>
+      <div class="stat-label">User Rating</div>
+    </div>
+  </div>
+
+  <!-- Call To Action -->
+  <div id="cta">
+    <h2>Ready to Start Your Journey?</h2>
+    <button>Browse Destinations</button>
+    <button>Create Account</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Travel Planner</p>
+    <p>Your ultimate companion for planning the perfect vacation.</p>
+    <p>© 2023 Travel Planner. All rights reserved.</p>
+  </footer>
+
+  <!-- Data Fetch & Render (first 3 cards) -->
+  <script>
+    fetch("https://edu-me01.github.io/Traval-task/api/data.json")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("cardContainer");
+        data.destinations.slice(0, 3).forEach(item => {
+          container.innerHTML += `
+            <div class="card">
+              <img src="${item.image}" alt="${item.country}">
+              <div class="card-body">
+                <h3>${item.country}</h3>
+                <p>${item.description}</p>
+                <div class="tags">
+                  <span>${item.region}</span>
+                  <span>👥 ${item.population}</span>
+                </div>
+                <div class="btn-group">
+                  <button onclick="x(${item.id})">View</button>
+                  <button onclick="y(${item.id})">Fav</button>
+                </div>
+              </div>
+            </div>`;
+        });
+      });
+  </script>
 
 </body>
-
 </html>
