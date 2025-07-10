@@ -366,6 +366,7 @@
   <script>
     // Function to load favourites from local storage
     function loadFavourites() {
+      // Get favourites from local storage, parse them, or return an empty array if none exist
       const favourites = localStorage.getItem('favourites');
       return favourites ? JSON.parse(favourites) : [];
     }
@@ -391,7 +392,7 @@
     }
 
     // Function to handle adding/removing from favourites
-    function addtofavourites(id) {
+    function toggleFavourite(id) { // Renamed for clarity
       let favourites = loadFavourites();
       const index = favourites.indexOf(id);
 
@@ -418,11 +419,13 @@
       updateFavouriteButtons(); // Update button state immediately
     }
 
-    // This function is for the "View" button and currently logs the ID.
-    // You can add your specific logic here to display details for a destination.
-    function x(id) {
-      localStorage.setItem("pid",id)
-       }
+    // Function for the "View" button to navigate to a details page
+    function viewDestinationDetails(id) { // Renamed for clarity
+      localStorage.setItem("selectedDestinationId", id);
+      window.location.href = "destination-details.html"; // Redirect to a details page
+      console.log("View button clicked for ID:", id); // For debugging
+    }
+
 
     // Fetch destination data and render cards
     fetch('https://edu-me01.github.io/Traval-task/api/data.json')
@@ -440,8 +443,8 @@
               <div class="tags">
                 <span>${item.region}</span>
                 <span>👥 ${item.population}</span>
-                <button class="view-btn" onclick="viewd(${item.id})">View</button>
-                <button class="view-btn fav-btn" data-id="${item.id}" onclick="x(${item.id})">🤍</button>
+                <button class="view-btn" onclick="viewDestinationDetails(${item.id})">View</button>
+                <button class="view-btn fav-btn" data-id="${item.id}" onclick="toggleFavourite(${item.id})">🤍</button>
               </div>
             </div>
           `;
@@ -462,9 +465,6 @@
 
     // Ensure favourite button states are updated when the page loads
     document.addEventListener('DOMContentLoaded', updateFavouriteButtons);
-    function viewd(id){
-      localStorage.setItem("vid",id);
-    }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
